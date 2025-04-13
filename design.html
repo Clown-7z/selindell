@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selindell - 用户设计分享</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        body {
+            background: #f5f7fa;
+            padding: 20px;
+        }
+        .share-container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .share-form label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        .share-form input, 
+        .share-form textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        .share-btn {
+            background: #1a73e8;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .share-list {
+            margin-top: 30px;
+        }
+        .share-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="share-container">
+        <h2 style="text-align: center; color: #1a73e8; margin-bottom: 30px;">用户设计分享</h2>
+        <form class="share-form">
+            <label>姓名（选填）</label>
+            <input type="text" id="username" placeholder="输入姓名">
+            <label>设计描述</label>
+            <textarea id="designDesc" placeholder="分享你的设计故事"></textarea>
+            <label>设计图片（模拟地址）</label>
+            <input type="text" id="imageUrl" placeholder="输入图片链接">
+            <button type="button" class="share-btn" onclick="submitShare()">提交分享</button>
+        </form>
+        <div class="share-list" id="shareList"></div>
+    </div>
+
+    <script>
+        function submitShare() {
+            const username = document.getElementById('username').value;
+            const designDesc = document.getElementById('designDesc').value;
+            const imageUrl = document.getElementById('imageUrl').value;
+
+            if (!designDesc || !imageUrl) {
+                alert("请填写设计描述和图片链接");
+                return;
+            }
+
+            const shareCard = document.createElement('div');
+            shareCard.className = 'share-card';
+            shareCard.innerHTML = `
+                <h4>${username ? username : '匿名用户'}</h4>
+                <p>${designDesc}</p >
+                < img src="${imageUrl}" alt="设计图片" style="max-width: 100%; height: auto; margin: 10px 0;">
+            `;
+            document.getElementById('shareList').prepend(shareCard);
+
+            // 清空表单
+            document.getElementById('designDesc').value = '';
+            document.getElementById('imageUrl').value = '';
+        }
+    </script>
+</body>
+</html>
